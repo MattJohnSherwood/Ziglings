@@ -1,20 +1,3 @@
-//
-// You can also put 'comptime' before a function parameter to
-// enforce that the argument passed to the function must be known
-// at compile time. We've actually been using a function like
-// this the entire time, std.debug.print():
-//
-//     fn print(comptime fmt: []const u8, args: anytype) void
-//
-// Notice that the format string parameter 'fmt' is marked as
-// 'comptime'.  One of the neat benefits of this is that the
-// format string can be checked for errors at compile time rather
-// than crashing at runtime.
-//
-// (The actual formatting is done by std.fmt.format() and it
-// contains a complete format string parser that runs entirely at
-// compile time!)
-//
 const print = @import("std").debug.print;
 
 // This struct is the model of a model boat. We can transform it
@@ -27,8 +10,8 @@ const Schooner = struct {
     bowsprit_length: u32 = 34,
     mainmast_height: u32 = 95,
 
-    fn scaleMe(self: *Schooner, comptime scale: u32) void {
-        comptime var my_scale = scale;
+    fn scaleMe(self: *Schooner, scale: u32) void {
+        var my_scale = scale;
 
         // We did something neat here: we've anticipated the
         // possibility of accidentally attempting to create a
@@ -43,7 +26,7 @@ const Schooner = struct {
         //
         // Please change this so that it sets a 0 scale to 1
         // instead.
-        if (my_scale == 0) @compileError("Scale 1:0 is not valid!");
+        if (my_scale == 0) my_scale = 1;
 
         self.scale = my_scale;
         self.hull_length /= my_scale;

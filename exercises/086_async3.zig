@@ -13,7 +13,10 @@ pub fn main() void {
     const n = 5;
     var foo_frame = async foo(n);
 
-    ???
+    var i = 0;
+    while (i < n) : (i += 1) {
+        resume foo_frame;
+    }
 
     print("\n", .{});
 }
@@ -24,6 +27,8 @@ fn foo(countdown: u32) void {
     while (current > 0) {
         print("{} ", .{current});
         current -= 1;
-        suspend {}
+        suspend {};
     }
 }
+
+// From what I can gather seems defunct; revert to function 0.10.1 to run!

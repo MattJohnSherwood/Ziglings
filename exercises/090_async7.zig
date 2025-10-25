@@ -29,18 +29,21 @@ pub fn main() void {
     // The main() function can not be async. But we know
     // getBeef() will not suspend with this particular
     // invocation. Please make this okay:
-    var my_beef = getBeef(0);
+    var my_beef = nosuspend getBeef(0);
 
     print("beef? {X}!\n", .{my_beef});
 }
 
 fn getBeef(input: u32) u32 {
     if (input == 0xDEAD) {
-        suspend {}
+        suspend {};
     }
 
     return 0xBEEF;
 }
+
+// From what I can gather seems defunct; revert to function 0.10.1 to run!
+
 //
 // Going Deeper Into...
 //                     ...uNdeFiNEd beHAVi0r!
@@ -85,3 +88,4 @@ fn getBeef(input: u32) u32 {
 // reacting to bits and bytes of raw memory with the base
 // instincts of the CPU. It is both terrifying and exhilarating.
 //
+

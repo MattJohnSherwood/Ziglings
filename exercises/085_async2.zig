@@ -19,10 +19,13 @@ const print = @import("std").debug.print;
 
 pub fn main() void {
     var foo_frame = async foo();
+    resume foo_frame;
 }
 
 fn foo() void {
     print("Hello ", .{});
-    suspend {}
+    suspend {};
     print("async!\n", .{});
 }
+
+// From what I can gather seems defunct; revert to function 0.10.1 to run!

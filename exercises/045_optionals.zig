@@ -29,7 +29,7 @@ pub fn main() void {
 
     // Please threaten the result so that answer is either the
     // integer value from deepThought() OR the number 42:
-    const answer: u8 = result;
+    const answer: u8 = result orelse 42;
 
     std.debug.print("The Ultimate Answer: {}.\n", .{answer});
 }
@@ -48,4 +48,3 @@ fn deepThought() ?u8 {
 //
 //    var maybe_bad: Error!u32 = Error.Evil;
 //    var number: u32 = maybe_bad catch 0;
-//
